@@ -1,0 +1,137 @@
+html {
+  touch-action: manipulation;
+}
+
+body {
+    background-color: rgb(252, 225, 225);
+    width: auto;
+    height: auto;
+}
+
+#canvas {
+    margin-top: 2em;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+#hold {
+    background-color: #fff;
+    border: 3px solid rgba(103, 31, 117, 0.473);
+    padding: 0 5px;
+}
+
+.info {
+    user-select: none;
+}
+.layout-flex {
+    display: flex;
+}
+
+.view_side_canvas {
+    margin: 2em 0 0 2em;
+    padding: 5px;
+}
+
+.view_logo {
+    font-family: Verdana;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+#next {
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgba(103, 31, 117, 0.473);
+    padding: 0 5px;
+}
+
+.score-field {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: Verdana;
+    margin-left: 1.3em;
+}
+
+table {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-left: 1.3em;
+}
+
+th {
+    border-bottom: 1px solid blueviolet;
+    padding: 0 3px;
+}
+
+.control-key {
+    border-bottom: 1px solid rgba(97, 92, 92, 0.527);
+    font-family: "Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;
+    text-align: center;
+}
+
+.button {
+    margin: 0 3px;
+    font-size: 1.5em;
+    font-weight: bold;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    user-select: none;
+    margin: 0 5px;
+    border-radius: 20px;
+}
+
+.button:active {
+    box-shadow: none;
+    position: relative;
+    top: 3px;
+    right: 3px;
+}
+
+#control {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    height: 0px;
+    display: none;
+}
+
+#left {
+    background-color: yellow;
+}
+
+#right {
+    background-color: blue;
+    color: white;
+}
+
+#rotate-left {
+    background-color: white;
+}
+
+#rotate-right {
+    background-color: black;
+    color: white;
+}
+
+#drop {
+    border: 2px solid black;
+}
+
+.sample {
+    background-color: rgb(206, 230, 163);
+    height: 100px;
+    width: 100px;
+}
+
+@media (max-width: 800px) {
+    table {
+        display: none;
+    }
+
+    #container {
+        display: block;
+    }
+}

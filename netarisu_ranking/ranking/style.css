@@ -1,0 +1,92 @@
+
+body {
+    background-color: rgba(135, 206, 235, 0.75); 
+}
+
+/*****************************  ヘッダー部分のスタイル  **************************** */
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5em 1.5em;
+    background: linear-gradient(90deg, red, orange, blue, yellow, green, grey, white, black);
+    background-size: 900% 900%;
+    animation: gradation 15s infinite;
+    user-select: none;
+}
+
+@keyframes gradation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.logo-main {
+    color: white;
+    font-size: 3.5vw;
+    font-weight: bold;
+}
+
+.toSelect {
+    display: block;
+    color: white;
+    font-size: 120%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.toSelect:hover {
+    border-bottom: 1px solid white;
+    font-size: 140%;
+}
+
+
+/*****************************  メイン部分のスタイル  **************************** */
+
+main {
+    width: 100%;
+    height: auto;
+}
+
+.container {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.players section {
+    margin: 0 auto;
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+    font-size: 1.2em;
+}
+
+.players div {
+    font-size: 1.2em;
+    padding: 1em 0;
+    list-style-type: none;
+    font-family: Verdana;
+    font-weight: bold;
+}
+
+.gold {
+    background: linear-gradient(90deg, rgb(255, 255, 0), orange);
+}
+
+.silver {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.952), rgb(184, 179, 179));
+}
+
+.blonze {
+    background: linear-gradient(90deg, rgb(196,112,34), rgba(201, 174, 93, 0.671));
+}
+
+/*****************************  フッター部分のスタイル  **************************** */
+footer {
+    background-color:rgba(112, 108, 108, 0.25);
+}
+
+.footer-nav li {
+    list-style-type: none;
+}
