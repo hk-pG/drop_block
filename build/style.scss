@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&display=swap');
+
+header {
+	background-color: rgb(143, 178, 229);
+	.header-container {
+		width: 90%;
+		margin: 0 auto;
+		color: rgb(247, 238, 238);
+		font-size: 2em;
+		padding: 0.5em;
+		font-weight: bold;
+		font-family: 'M PLUS Rounded 1c', sans-serif;
+		span {
+			text-decoration: line-through;
+		}
+	}
+}
+
+main {
+	background-color: rgb(143, 238, 238);
+	height: calc(100vh - 4em);
+	.main-container {
+		width: 70%;
+		margin: 0 auto;
+		background-color: #fff;
+		height: calc(100vh - 4em);
+
+		.select {
+			padding-top: 5em;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+
+			a {
+				text-decoration: none;
+				color: #fff;
+				font-family: 'M PLUS Rounded 1c', 'sans-serif';
+				font-size: 1.2em;
+				border-radius: 50px;
+			}
+			.game-link {
+				padding: 2em;
+				margin: 1em;
+				text-align: center;
+				transition-duration: 0.3s;
+				$first-color: #fa1a1a;
+				$second-color: #0000ff;
+				$third-color: #ffaf00;
+				$fourth-color: #e235ae;
+
+				&:nth-child(1) {
+					color: $first-color;
+					border: 1px $first-color solid;
+				}
+				&:nth-child(2) {
+					color: $second-color;
+					border: 1px $second-color solid;
+				}
+				&:nth-child(3) {
+					color: $third-color;
+					border: 1px $third-color solid;
+				}
+				&:nth-child(4) {
+					color: $fourth-color;
+					border: 1px $fourth-color solid;
+				}
+
+				&:hover {
+					&:nth-child(1) {
+						background-color: $first-color;
+						color: #fff;
+					}
+					&:nth-child(2) {
+						background-color: $second-color;
+						color: #fff;
+					}
+					&:nth-child(3) {
+						background-color: $third-color;
+						color: #fff;
+					}
+					&:nth-child(4) {
+						background-color: $fourth-color;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+}
