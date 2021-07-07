@@ -1,13 +1,15 @@
 "use strict";
 const debug = true;
 if (debug) {
-	console.log("debug : finish");
+  console.log("debug : finish");
 }
 // ミノを構成する一つのブロックのサイズ
 const blockSize = 30;
 
 // テトロミノのサイズ
 const tetroSize = 4;
+
+let gameStart = false;
 
 // 画面の準備 ----------------------------------------------------------------
 
@@ -58,14 +60,14 @@ canvas.style.backgroundColor = fieldColor;
 canvas.style.outline = "4px solid #555";
 
 const tetroColors = [
-	fieldColor,
-	"green",
-	"yellow",
-	"rgb(116, 143, 231)", //blue,
-	"skyblue",
-	"gray",
-	"orange",
-	"pink",
+  fieldColor,
+  "green",
+  "yellow",
+  "rgb(116, 143, 231)", //blue,
+  "skyblue",
+  "gray",
+  "orange",
+  "pink",
 ];
 
 // フィールドの宣言
@@ -88,65 +90,65 @@ let toggleHold = true;
 
 // テトロミノの宣言
 const tetroTypes = [
-	[], //0, 空っぽ -> 着地点用
-	[
-		//1, I
-		[1, 1, 1, 1],
-		[0, 0, 0, 0],
-		[0, 0, 0, 0],
-		[0, 0, 0, 0],
-	],
-	[
-		//2, L
-		[0, 1, 0, 0],
-		[0, 1, 0, 0],
-		[0, 1, 1, 0],
-		[0, 0, 0, 0],
-	],
-	[
-		//3, J
-		[0, 0, 1, 0],
-		[0, 0, 1, 0],
-		[0, 1, 1, 0],
-		[0, 0, 0, 0],
-	],
-	[
-		//4, T
-		[0, 1, 0, 0],
-		[0, 1, 1, 0],
-		[0, 1, 0, 0],
-		[0, 0, 0, 0],
-	],
-	[
-		//5, O
-		[0, 0, 0, 0],
-		[0, 1, 1, 0],
-		[0, 1, 1, 0],
-		[0, 0, 0, 0],
-	],
-	[
-		//6, Z
-		[0, 0, 0, 0],
-		[1, 1, 0, 0],
-		[0, 1, 1, 0],
-		[0, 0, 0, 0],
-	],
-	[
-		//7, S
-		[0, 0, 0, 0],
-		[0, 1, 1, 0],
-		[1, 1, 0, 0],
-		[0, 0, 0, 0],
-	],
+  [], //0, 空っぽ -> 着地点用
+  [
+    //1, I
+    [1, 1, 1, 1],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    //2, L
+    [0, 1, 0, 0],
+    [0, 1, 0, 0],
+    [0, 1, 1, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    //3, J
+    [0, 0, 1, 0],
+    [0, 0, 1, 0],
+    [0, 1, 1, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    //4, T
+    [0, 1, 0, 0],
+    [0, 1, 1, 0],
+    [0, 1, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    //5, O
+    [0, 0, 0, 0],
+    [0, 1, 1, 0],
+    [0, 1, 1, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    //6, Z
+    [0, 0, 0, 0],
+    [1, 1, 0, 0],
+    [0, 1, 1, 0],
+    [0, 0, 0, 0],
+  ],
+  [
+    //7, S
+    [0, 0, 0, 0],
+    [0, 1, 1, 0],
+    [1, 1, 0, 0],
+    [0, 0, 0, 0],
+  ],
 ];
 const tetroTypesObject = {
-	1: "I",
-	2: "L",
-	3: "J",
-	4: "T",
-	5: "O",
-	6: "Z",
-	7: "S",
+  1: "I",
+  2: "L",
+  3: "J",
+  4: "T",
+  5: "O",
+  6: "Z",
+  7: "S",
 };
 // テトロミノの初期地点　ー＞　画面中央の上から出現する
 const startX = fieldCol / 2 - tetroSize / 2;
@@ -164,68 +166,74 @@ let dropSpeed = 800;
 
 // キーボード操作
 document.onkeydown = (e) => {
-	gameController(e);
+  gameController(e);
 };
 
 right.onclick = () => {
-	console.log("button pushed");
-	gameController(39);
+  console.log("button pushed");
+  gameController(39);
 };
 
 left.onclick = () => {
-	gameController(37);
+  gameController(37);
 };
 
 rotateRight.onclick = () => {
-	gameController(70);
+  gameController(70);
 };
 
 rotateLeft.onclick = () => {
-	gameController(68);
+  gameController(68);
 };
 
 drop.onclick = () => {
-	gameController(40);
+  gameController(40);
 };
 
 document.onkeydown = (e) => {
-	gameController(e.keyCode);
+  gameController(e.keyCode);
 };
 const gameController = (e) => {
-	if (gameOver) return;
-	let nteto;
-	switch (e) {
-		case 37:
-			// 左
-			if (checkMove(-1, 0)) tetroX--;
-			break;
-		case 38:
-			// 上キーを押すと、一気に下に行く
-			while (checkMove(0, 1)) tetroY += 1;
-			break;
-		case 39:
-			// 右
-			if (checkMove(1, 0)) tetroX++;
-			break;
-		case 40:
-			// 下
-			if (checkMove(0, 1)) tetroY++;
-			break;
-		case 70:
-			// Fキー
-			nteto = rotate(0);
-			if (checkMove(0, 0, nteto)) tetro = nteto;
-			break;
-		case 68:
-			nteto = rotate(1);
-			if (checkMove(0, 0, nteto)) tetro = nteto;
-			break;
-		case 32:
-			// スペース
-			tetroHold();
-			break;
-	}
-	drawAll();
+  if (gameOver) return;
+  let nteto;
+  if (gameStart) {
+    switch (e) {
+      case 37:
+        // 左
+        if (checkMove(-1, 0)) tetroX--;
+        break;
+      case 38:
+        // 上キーを押すと、一気に下に行く
+        while (checkMove(0, 1)) tetroY += 1;
+        break;
+      case 39:
+        // 右
+        if (checkMove(1, 0)) tetroX++;
+        break;
+      case 40:
+        // 下
+        if (checkMove(0, 1)) tetroY++;
+        break;
+      case 70:
+        // Fキー
+        nteto = rotate(0);
+        if (checkMove(0, 0, nteto)) tetro = nteto;
+        break;
+      case 68:
+        nteto = rotate(1);
+        if (checkMove(0, 0, nteto)) tetro = nteto;
+        break;
+      case 32:
+        // スペース
+        tetroHold();
+        break;
+    }
+    drawAll();
+  } else {
+    if (e === 32) {
+      gameStart = true;
+    }
+  }
 };
 
 // ntx.fillRect(0, 0, blockSize, blockSize);
@@ -239,6 +247,4 @@ let newTetro = tetroTypes[newTtype];
 let tetro = tetroTypes[Ttype];
 
 init();
-drawAll();
-drawNext();
 let gameInterval = setInterval(dropBlock, dropSpeed);

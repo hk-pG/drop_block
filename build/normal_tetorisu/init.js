@@ -223,6 +223,7 @@ const gameController = (e) => {
         tetroHold();
         break;
     }
+    drawAll();
   } else {
     console.log("before startGame");
     if (e === 32) {
@@ -230,8 +231,6 @@ const gameController = (e) => {
       gameStart = true;
     }
   }
-
-  drawAll();
 };
 
 // ntx.fillRect(0, 0, blockSize, blockSize);
