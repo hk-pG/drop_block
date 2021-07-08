@@ -1,4 +1,5 @@
 "use strict";
+const restartButton = document.getElementById("restart-button");
 // **************************************************************1. functions.js *************************************************
 const getRandomNum = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -12,6 +13,13 @@ const init = () => {
       field[y][x] = 0;
     }
   }
+};
+
+const restartGame = () => {
+  restartButton.classList.remove("hidden");
+  restartButton.addEventListener("click", () => {
+    location.reload();
+  });
 };
 
 const gameStartMessage = () => {
@@ -191,8 +199,10 @@ const drawNext = () => {
 //    テトロミノが落ちる処理
 const dropBlock = () => {
   //    ゲームオーバーだったら、その時点で処理をしない
-  if (gameOver) return;
-
+  if (gameOver) {
+    restartGame();
+    return;
+  }
   if (gameStart) {
     if (checkMove(0, 1) /* 現在地の一つ下に行けるか（落ちれるか）を調べる */) {
       tetroY++; // 一つ下にミノを落とす

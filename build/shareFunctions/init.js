@@ -1,13 +1,13 @@
 "use strict";
-// ******************************************************** 2. index.js ********************************************************
+
+// ゲームの開始を知らせる
+let gameStart = false;
+
 // ミノを構成する一つのブロックのサイズ
 const blockSize = 30;
 
 // テトロミノのサイズ
 const tetroSize = 4;
-
-// ゲームが開始しているかどうか
-let gameStart = false;
 
 // 画面の準備 ----------------------------------------------------------------
 
@@ -20,29 +20,14 @@ const fieldRow = 20;
 canvas.width = blockSize * fieldCol;
 canvas.height = blockSize * fieldRow;
 
+const left = document.getElementById("left");
+const right = document.getElementById("right");
+const rotateLeft = document.getElementById("rotate-left");
+const rotateRight = document.getElementById("rotate-right");
+const drop = document.getElementById("drop");
+
 const body = document.querySelector("body");
-
-//背景画像
-const bgImgContainer = document.getElementById("bg-img-container");
-
-bgImgContainer.style.minHeight = "100vh";
-
-const backgroundImage = [
-  "./sakura.jpg",
-  "https://www.pakutaso.com/shared/img/thumb/TSU1994052_TP_V.jpg",
-  "https://www.pakutaso.com/shared/img/thumb/pakusky458A8762_TP_V.jpg",
-  "https://www.pakutaso.com/shared/img/thumb/007ELA201029A_TP_V.jpg",
-  "https://cdn.pixabay.com/photo/2016/05/05/18/24/winter-1374504_1280.jpg",
-  "https://www.pakutaso.com/shared/img/thumb/osakekowai458A0290_TP_V.jpg",
-  "https://www.pakutaso.com/shared/img/thumb/kamameshiPAR50519_TP_V.jpg",
-  "https://www.pakutaso.com/shared/img/thumb/ookawaPAR59590_TP_V.jpg",
-  "https://www.pakutaso.com/shared/img/thumb/TSU1994026_TP_V.jpg",
-  "https://www.pakutaso.com/shared/img/thumb/kuchikomi832_TP_V.jpg",
-];
-
-bgImgContainer.style.backgroundImage = `url(${
-  backgroundImage[getRandomNum(0, backgroundImage.length - 1)]
-})`;
+// canvas.style.marginLeft = (body.clientWidth / 2) - (canvas.width / 2) + 'px';
 
 // 次のミノの表示画面
 const next = document.getElementById("next");
@@ -58,13 +43,12 @@ scoreView.innerText = `SCORE : ${score} P`;
 // ホールド画面の表示
 const holdView = document.getElementById("hold");
 const htx = holdView.getContext("2d");
-const baka = document.getElementById("baka");
 
 holdView.width = blockSize * 4;
 holdView.height = blockSize * 4;
 
 // フィールドの色関連
-const fieldColor = "rgba(206, 230, 163, 0.8)";
+const fieldColor = "rgb(206, 230, 163)";
 canvas.style.backgroundColor = fieldColor;
 canvas.style.outline = "4px solid #555";
 
@@ -77,9 +61,6 @@ const tetroColors = [
   "gray",
   "orange",
   "pink",
-  "#555",
-  "rgba(0, 0, 0, 0)", //透明
-  "limegreen",
 ];
 
 // フィールドの宣言
@@ -152,26 +133,16 @@ const tetroTypes = [
     [1, 1, 0, 0],
     [0, 0, 0, 0],
   ],
-
-  [
-    [1, 0, 0, 1],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [1, 0, 0, 1],
-  ],
-  [
-    [1, 1, 1, 1],
-    [1, 0, 0, 1],
-    [1, 0, 0, 1],
-    [1, 1, 1, 1],
-  ],
-  [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 1, 0, 0],
-    [0, 0, 0, 0],
-  ],
 ];
+const tetroTypesObject = {
+  1: "I",
+  2: "L",
+  3: "J",
+  4: "T",
+  5: "O",
+  6: "Z",
+  7: "S",
+};
 // テトロミノの初期地点　ー＞　画面中央の上から出現する
 const startX = fieldCol / 2 - tetroSize / 2;
 const startY = 0;
@@ -181,15 +152,18 @@ let tetroX = startX;
 let tetroY = startY;
 
 // テトロミノの落ちるスピード -> dropSpeed (ミリ秒)に１ブロック分落ちる (1000ミリ秒で1秒)
-let dropSpeed = 800;
+const dropSpeed = 800;
 
-// 経過時間（ターン）
-let turn = 0;
 // キーボード操作
+document.onkeydown = (e) => {
+  gameController(e);
+};
 
-/* スコア登録のボタン及びモーダルウィンドウ部分のスクリプト */
-const openButton = document.getElementById("openButton");
+document.onkeydown = (e) => {
+  gameController(e.keyCode);
+};
 
+// ntx.fillRect(0, 0, blockSize, blockSize);
 // ゲームの実行処理
 let Ttype = getRandomNum(1, tetroTypes.length - 1);
 let newTtype = getRandomNum(1, tetroTypes.length - 1);
@@ -198,7 +172,6 @@ let newTtype = getRandomNum(1, tetroTypes.length - 1);
 
 let newTetro = tetroTypes[newTtype];
 let tetro = tetroTypes[Ttype];
-let gameId;
 
 init();
-startGame(dropSpeed);
+let gameInterval = setInterval(dropBlock, dropSpeed);

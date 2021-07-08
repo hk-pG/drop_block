@@ -1,4 +1,5 @@
 "use strict";
+const restartButton = document.getElementById("restart-button");
 // **************************************************************1. functions.js *************************************************
 const getRandomNum = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -14,6 +15,13 @@ const init = () => {
   }
 };
 
+const restartGame = () => {
+  restartButton.classList.remove("hidden");
+  restartButton.addEventListener("click", () => {
+    location.reload();
+  });
+};
+
 const gameStartMessage = () => {
   ctx.beginPath();
   ctx.font = "bold 150% verdana";
@@ -26,10 +34,6 @@ const gameStartMessage = () => {
   ctx.strokeText(overMessage, x, y);
   ctx.fillText(overMessage, x, y);
   ctx.closePath();
-};
-
-const buttonDisplay = () => {
-  openButton.style.display = "block";
 };
 
 const addScore = (lineCount) => {
@@ -130,7 +134,7 @@ const drawAll = () => {
 
   if (gameOver) {
     ctx.font = "bold 250% verdana";
-    let overMessage = "＼(^o^)／ｵﾜﾀ";
+    let overMessage = "GAME OVER";
     let w = ctx.measureText(overMessage).width;
     let x = canvas.width / 2 - w / 2;
     let y = canvas.height / 2 - w / 20;
@@ -138,9 +142,6 @@ const drawAll = () => {
     ctx.lineWidth = 4;
     ctx.strokeText(overMessage, x, y);
     ctx.fillText(overMessage, x, y);
-    baka.innerText = "ごめんなさい(m´・ω・｀)m";
-    baka.classList.add("impact");
-    buttonDisplay();
   }
 };
 
@@ -191,7 +192,10 @@ const drawNext = () => {
 //    テトロミノが落ちる処理
 const dropBlock = () => {
   //    ゲームオーバーだったら、その時点で処理をしない
-  if (gameOver) return;
+  if (gameOver) {
+    restartGame();
+    return;
+  }
 
   if (gameStart) {
     if (checkMove(0, 1) /* 現在地の一つ下に行けるか（落ちれるか）を調べる */) {

@@ -24,15 +24,6 @@ canvas.height = blockSize * fieldRow;
 
 const control = document.getElementById("control");
 
-const controllerWidth = canvas.width + canvas.width / 2;
-control.style.width = controllerWidth + "px";
-control.style.margin = "5% auto";
-const left = document.getElementById("left");
-const right = document.getElementById("right");
-const rotateLeft = document.getElementById("rotate-left");
-const rotateRight = document.getElementById("rotate-right");
-const drop = document.getElementById("drop");
-
 const body = document.querySelector("body");
 // canvas.style.marginLeft = (body.clientWidth / 2) - (canvas.width / 2) + 'px';
 
