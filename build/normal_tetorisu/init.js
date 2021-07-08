@@ -188,50 +188,6 @@ drop.onclick = () => {
 document.onkeydown = (e) => {
   gameController(e.keyCode);
 };
-const gameController = (e) => {
-  if (gameOver) return;
-  let nteto;
-  if (gameStart) {
-    switch (e) {
-      case 37:
-        // 左
-        if (checkMove(-1, 0)) tetroX--;
-        break;
-      case 38:
-        // 上キーを押すと、一気に下に行く
-        while (checkMove(0, 1)) tetroY += 1;
-        break;
-      case 39:
-        // 右
-        if (checkMove(1, 0)) tetroX++;
-        break;
-      case 40:
-        // 下
-        if (checkMove(0, 1)) tetroY++;
-        break;
-      case 70:
-        // Fキー
-        nteto = rotate(0);
-        if (checkMove(0, 0, nteto)) tetro = nteto;
-        break;
-      case 68:
-        nteto = rotate(1);
-        if (checkMove(0, 0, nteto)) tetro = nteto;
-        break;
-      case 32:
-        // スペース
-        tetroHold();
-        break;
-    }
-    drawAll();
-  } else {
-    console.log("before startGame");
-    if (e === 32) {
-      console.log("game start!");
-      gameStart = true;
-    }
-  }
-};
 
 // ntx.fillRect(0, 0, blockSize, blockSize);
 // ゲームの実行処理
