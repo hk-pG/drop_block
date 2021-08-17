@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "netarisu-score"
+  },
+  "targets": {
+    "netarisu-score": {
+      "hosting": {
+        "netarisuScore": [
+          "netarisu-score"
+        ]
+      }
+    }
   }
 }
