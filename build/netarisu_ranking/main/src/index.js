@@ -189,6 +189,7 @@ let turn = 0;
 
 /* スコア登録のボタン及びモーダルウィンドウ部分のスクリプト */
 const openButton = document.getElementById("openButton");
+openButton.style.display = "none";
 
 // ゲームの実行処理
 let Ttype = getRandomNum(1, tetroTypes.length - 1);
